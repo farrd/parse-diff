@@ -1,5 +1,5 @@
 expect = require 'expect.js'
-parse = require '../index'
+parse = require '../src/parse'
 
 describe 'diff parser', ->
 	it 'should parse null', ->
