@@ -33,7 +33,11 @@ module.exports = (grunt) ->
 			options:
 				no_tabs: {level: 'ignore'}
 				indentation: {level: 'ignore'}
-			dev: ['*.coffee', 'lib/*.coffee', 'test/*.coffee']
+			dev: ['*.coffee', 'src/*.coffee', 'test/*.coffee']
+
+		coffee:
+			files:
+				'lib/parse.js': 'src/parse.coffee'
 
 		simplemocha:
 			options:
@@ -43,18 +47,20 @@ module.exports = (grunt) ->
 
 	grunt.loadNpmTasks 'grunt-contrib-jshint'
 	grunt.loadNpmTasks 'grunt-coffeelint'
+	grunt.loadNpmTasks 'grunt-contrib-coffee'
 	grunt.loadNpmTasks 'grunt-simple-mocha'
 	grunt.loadNpmTasks 'grunt-npm'
 	grunt.loadNpmTasks 'grunt-bump'
 	grunt.loadNpmTasks 'grunt-auto-release'
 
-	grunt.registerTask 'release', 'Bump the version and publish to NPM.',
-		(type) -> grunt.task.run [
-			'npm-contributors',
-			"bump:#{type||'patch'}",
-			'npm-publish'
-		]
+	# grunt.registerTask 'release', 'Bump the version and publish to NPM.',
+	# 	(type) -> grunt.task.run [
+	# 		'npm-contributors',
+	# 		"bump:#{type||'patch'}",
+	# 		'npm-publish'
+	# 	]
 
+	grunt.registerTask 'compile', ['coffee']
 	grunt.registerTask 'lint', ['coffeelint', 'jshint']
 	grunt.registerTask 'test', ['lint', 'simplemocha']
 	grunt.registerTask 'default', ['test']
