@@ -10,36 +10,13 @@ module.exports = (input) ->
 	lines = input.split '\n'
 	return [] if lines.length == 0
 
-	files = []
-	file = null
 	ln_del = 0
 	ln_add = 0
 
-	start = ->
-		file =
-			lines: []
-			deletions: 0
-			additions: 0
-		files.push file
-
-	restart = ->
-		start() if not file || file.lines.length
-
-	new_file = ->
-		restart()
-		file.new = true
-
-	index = (line) ->
-		restart()
-		file.index = line.split(' ').slice(1)
-
-	from_file = (line) ->
-		restart()
-		file.from = parseFile line
-
-	to_file = (line) ->
-		restart()
-		file.to = parseFile line
+	file =
+		lines: []
+		deletions: 0
+		additions: 0
 
 	chunk = (line, match) ->
 		ln_del = +match[1]
@@ -66,12 +43,6 @@ module.exports = (input) ->
 		}
 
 	schema = [
-		# todo beter regexp to avoid detect normal line starting with diff
-		[/^diff\s/, start],
-		[/^new file mode \d+$/, new_file],
-		[/^index\s[\da-zA-Z]+\.\.[\da-zA-Z]+(\s(\d+))?$/, index],
-		[/^---\s/, from_file]
-		[/^\+\+\+\s/, to_file]
 		[/^@@\s+\-(\d+),(\d+)\s+\+(\d+),(\d+)\s@@/, chunk],
 		[/^-/, del],
 		[/^\+/, add]
@@ -88,7 +59,7 @@ module.exports = (input) ->
 	for line in lines
 		normal(line) unless parse line
 
-	return files
+	return file
 
 parseFile = (s) ->
 	s = _.str.ltrim s, '-'
