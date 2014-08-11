@@ -36,8 +36,9 @@ module.exports = (grunt) ->
 			dev: ['*.coffee', 'src/*.coffee', 'test/*.coffee']
 
 		coffee:
-			files:
-				'lib/parse.js': 'src/parse.coffee'
+			compile:
+				files:
+					'lib/parse.js': 'src/parse.coffee'
 
 		simplemocha:
 			options:
