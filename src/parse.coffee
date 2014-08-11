@@ -24,11 +24,11 @@ module.exports = (input) ->
 		file.lines.push {type:'chunk', chunk:true, content:line}
 
 	del = (line) ->
-		file.lines.push {type:'del', del:true, ln:ln_del++, content:line}
+		file.lines.push {type:'del', del:true, base:ln_del++, content:line}
 		file.deletions++
 
 	add = (line) ->
-		file.lines.push {type:'add', add:true, ln:ln_add++, content:line}
+		file.lines.push {type:'add', add:true, head:ln_add++, content:line}
 		file.additions++
 
 	noeol = '\\ No newline at end of file'
@@ -37,8 +37,8 @@ module.exports = (input) ->
 		file.lines.push {
 			type: 'normal'
 			normal: true
-			ln1: ln_del++ unless line is noeol
-			ln2: ln_add++ unless line is noeol
+			base: ln_del++ unless line is noeol
+			head: ln_add++ unless line is noeol
 			content: line
 		}
 
