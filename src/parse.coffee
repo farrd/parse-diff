@@ -33,12 +33,12 @@ module.exports = (input) ->
 
 	noeol = '\\ No newline at end of file'
 	normal = (line) ->
-		return if not file
+		return if not file or line is noeol
 		file.lines.push {
 			type: 'normal'
 			normal: true
-			base: ln_del++ unless line is noeol
-			head: ln_add++ unless line is noeol
+			base: ln_del++
+			head: ln_add++
 			content: line
 		}
 
