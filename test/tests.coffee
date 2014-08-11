@@ -18,10 +18,10 @@ describe 'diff parser', ->
 + line2
 """
 		file = parse diff
-		expect(file.lines.length).to.be(3)
-		expect(file.lines[0].content).to.be('@@ -1,2 +1,2 @@')
-		expect(file.lines[1].content).to.be('- line1')
-		expect(file.lines[2].content).to.be('+ line2')
+		expect(file.length).to.be(3)
+		expect(file[0].content).to.be('@@ -1,2 +1,2 @@')
+		expect(file[1].content).to.be('- line1')
+		expect(file[2].content).to.be('+ line2')
 
 	it 'should parse diff with new file mode line', ->
 		diff = """
@@ -30,10 +30,10 @@ describe 'diff parser', ->
 +line2
 """
 		file = parse diff
-		expect(file.lines.length).to.be(3)
-		expect(file.lines[0].content).to.be('@@ -0,0 +1,2 @@')
-		expect(file.lines[1].content).to.be('+line1')
-		expect(file.lines[2].content).to.be('+line2')
+		expect(file.length).to.be(3)
+		expect(file[0].content).to.be('@@ -0,0 +1,2 @@')
+		expect(file[1].content).to.be('+line1')
+		expect(file[2].content).to.be('+line2')
 
 	it 'should parse gnu sample diff', ->
 		diff = """
@@ -56,4 +56,4 @@ But after they are produced,
 +The door of all subtleties!
 """
 		file = parse diff
-		expect(file.lines.length).to.be(17)
+		expect(file.length).to.be(17)

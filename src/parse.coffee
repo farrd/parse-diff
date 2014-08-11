@@ -13,28 +13,23 @@ module.exports = (input) ->
 	ln_del = 0
 	ln_add = 0
 
-	file =
-		lines: []
-		deletions: 0
-		additions: 0
+	file = []
 
 	chunk = (line, match) ->
 		ln_del = +match[1]
 		ln_add = +match[3]
-		file.lines.push {type:'chunk', chunk:true, content:line}
+		file.push {type:'chunk', chunk:true, content:line}
 
 	del = (line) ->
-		file.lines.push {type:'del', del:true, base:ln_del++, content:line}
-		file.deletions++
+		file.push {type:'del', del:true, base:ln_del++, content:line}
 
 	add = (line) ->
-		file.lines.push {type:'add', add:true, head:ln_add++, content:line}
-		file.additions++
+		file.push {type:'add', add:true, head:ln_add++, content:line}
 
 	noeol = '\\ No newline at end of file'
 	normal = (line) ->
 		return if not file or line is noeol
-		file.lines.push {
+		file.push {
 			type: 'normal'
 			normal: true
 			base: ln_del++
