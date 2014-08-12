@@ -10,8 +10,8 @@ module.exports = (input) ->
 	lines = input.split '\n'
 	return [] if lines.length == 0
 
-	ln_del = 0
-	ln_add = 0
+	ln_del = 1
+	ln_add = 1
 
 	file = []
 
