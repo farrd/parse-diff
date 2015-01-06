@@ -38,7 +38,7 @@ module.exports = (input) ->
 		}
 
 	schema = [
-		[/^@@\s+\-(\d+),(\d+)\s+\+(\d+),(\d+)\s@@/, chunk],
+		[/^@@\s+\-(\d+)(,(\d+))?\s+\+(\d+)(,(\d+))?\s@@/, chunk],
 		[/^-/, del],
 		[/^\+/, add]
 	]
