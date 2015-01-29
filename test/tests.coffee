@@ -57,26 +57,3 @@ But after they are produced,
 """
 		file = parse diff
 		expect(file.length).to.be(17)
-
-	it 'should parse our diff', ->
-		diff = """
-@@ -7,7 +7,4 @@
- 
- TechEd Addition
- 
--new commit
--
- now with comma,
--
-"""
-
-		file = parse diff
-		expect(file.length).to.be(8)
-		expect(file[0].content).to.be('@@ -7,7 +7,4 @@')
-		expect(file[1].content).to.be(' ')
-		expect(file[2].content).to.be(' TechEd Addition')
-		expect(file[3].content).to.be(' ')
-		expect(file[4].content).to.be('-new commit')
-		expect(file[5].content).to.be('-')
-		expect(file[6].content).to.be(' now with comma,')
-		expect(file[7].content).to.be('-')
