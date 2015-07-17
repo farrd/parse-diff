@@ -10,6 +10,7 @@ module.exports = (input) ->
 	lines = input.split '\n'
 	return [] if lines.length == 0
 
+	ln_pos = 1
 	ln_del = 1
 	ln_add = 1
 
@@ -21,10 +22,22 @@ module.exports = (input) ->
 		file.push {type:'chunk', chunk:true, content:line}
 
 	del = (line) ->
-		file.push {type:'del', del:true, base:ln_del++, content:line}
+		file.push {
+			type:'del'
+			del:true
+			base:ln_del++
+			position:ln_pos++
+			content:line
+		}
 
 	add = (line) ->
-		file.push {type:'add', add:true, head:ln_add++, content:line}
+		file.push {
+			type:'add'
+			add:true
+			head:ln_add++
+			position:ln_pos++
+			content:line
+		}
 
 	noeol = '\\ No newline at end of file'
 	normal = (line) ->
@@ -34,6 +47,7 @@ module.exports = (input) ->
 			normal: true
 			base: ln_del++
 			head: ln_add++
+			position:ln_pos++
 			content: line
 		}
 
