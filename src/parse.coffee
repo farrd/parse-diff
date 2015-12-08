@@ -10,7 +10,7 @@ module.exports = (input) ->
 	lines = input.split '\n'
 	return [] if lines.length == 0
 
-	ln_pos = 1
+	ln_pos = 0
 	ln_del = 1
 	ln_add = 1
 
@@ -19,7 +19,12 @@ module.exports = (input) ->
 	chunk = (line, match) ->
 		ln_del = +match[1]
 		ln_add = +match[3]
-		file.push {type:'chunk', chunk:true, content:line}
+		file.push {
+			type:'chunk'
+			chunk:true
+			position:ln_pos++
+			content:line
+		}
 
 	del = (line) ->
 		file.push {

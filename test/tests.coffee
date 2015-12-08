@@ -35,6 +35,24 @@ describe 'diff parser', ->
 		expect(file[1].content).to.be('+line1')
 		expect(file[2].content).to.be('+line2')
 
+	it 'should parse diff with correct positions', ->
+		diff = """
+@@ -0,0 +1,2 @@
++line1
++line2
+@@ -5,0 +7,2 @@
++line3
++line4
+"""
+		file = parse diff
+		expect(file.length).to.be(6)
+		expect(file[0].position).to.be(0)
+		expect(file[1].position).to.be(1)
+		expect(file[2].position).to.be(2)
+		expect(file[3].position).to.be(3)
+		expect(file[4].position).to.be(4)
+		expect(file[5].position).to.be(5)
+
 	it 'should parse gnu sample diff', ->
 		diff = """
 @@ -1,7 +1,6 @@
